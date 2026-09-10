@@ -117,7 +117,7 @@ rdpWrapper.exe -status
 ---
 
 ## Notes
-
+> <sub>This project is a CLI rebuild inspired by the original [stascorp/rdpwrap](https://github.com/stascorp/rdpwrap).</sub>
 > RDP Wrapper does **not** patch `termsrv.dll`. It loads it with different parameters, keeping the original file untouched — making it resilient against Windows Updates.
 
 > Some antivirus software (including Defender) may flag this tool due to its behavior. Consider adding the install folder to your exclusion list:
@@ -127,4 +127,4 @@ rdpWrapper.exe -status
 
 ---
 
-<sub>This project is a CLI rebuild inspired by the original [stascorp/rdpwrap](https://github.com/stascorp/rdpwrap).</sub>
+
