@@ -4,6 +4,7 @@
 
 ![Windows](https://img.shields.io/badge/Windows-7%20%E2%80%93%2011-blue)
 ![.NET](https://img.shields.io/badge/.NET-4.5-purple)
+![License](https://img.shields.io/badge/license-MIT-green)
 
 ---
 
@@ -123,3 +124,7 @@ rdpWrapper.exe -status
 > ```
 > C:\Program Files\RDP Wrapper\
 > ```
+
+---
+
+<sub>This project is a CLI rebuild inspired by the original [stascorp/rdpwrap](https://github.com/stascorp/rdpwrap).</sub>
