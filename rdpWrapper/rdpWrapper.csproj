@@ -1,0 +1,150 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net45</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <OutputType>Exe</OutputType>
+    <Deterministic>false</Deterministic>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <Platforms>AnyCPU;x86;x64</Platforms>
+    <Configurations>Debug;Release;DebugLite;ReleaseLite</Configurations>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <!-- Debug / AnyCPU -->
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <AssemblyName>rdpWrapper</AssemblyName>
+    <OutputPath>bin\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <!-- Debug / x64 -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <AssemblyName>rdpWrapper_x64</AssemblyName>
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+
+  <!-- Debug / x86 -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <AssemblyName>rdpWrapper_x86</AssemblyName>
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+
+  <!-- DebugLite / AnyCPU -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugLite|AnyCPU'">
+    <AssemblyName>rdpWrapper_lite</AssemblyName>
+    <DefineConstants>LITEVERSION</DefineConstants>
+    <OutputPath>bin\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <!-- DebugLite / x64 -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugLite|x64'">
+    <AssemblyName>rdpWrapper_x64_lite</AssemblyName>
+    <DefineConstants>LITEVERSION</DefineConstants>
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+
+  <!-- DebugLite / x86 -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugLite|x86'">
+    <AssemblyName>rdpWrapper_lite_x86</AssemblyName>
+    <DefineConstants>LITEVERSION</DefineConstants>
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+
+  <!-- Release / AnyCPU -->
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <AssemblyName>rdpWrapper</AssemblyName>
+    <OutputPath>bin\</OutputPath>
+    <Optimize>True</Optimize>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <!-- Release / x64 -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <AssemblyName>rdpWrapper_x64</AssemblyName>
+    <OutputPath>bin\</OutputPath>
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+
+  <!-- Release / x86 -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <AssemblyName>rdpWrapper_x86</AssemblyName>
+    <OutputPath>bin\</OutputPath>
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+
+  <!-- ReleaseLite / AnyCPU -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseLite|AnyCPU'">
+    <AssemblyName>rdpWrapper_lite</AssemblyName>
+    <DefineConstants>LITEVERSION</DefineConstants>
+    <OutputPath>bin\</OutputPath>
+    <Optimize>True</Optimize>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <!-- ReleaseLite / x64 -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseLite|x64'">
+    <AssemblyName>rdpWrapper_x64_lite</AssemblyName>
+    <DefineConstants>LITEVERSION</DefineConstants>
+    <OutputPath>bin\</OutputPath>
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+
+  <!-- ReleaseLite / x86 -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseLite|x86'">
+    <AssemblyName>rdpWrapper_x86_lite</AssemblyName>
+    <DefineConstants>LITEVERSION</DefineConstants>
+    <OutputPath>bin\</OutputPath>
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <IsLiteVersion Condition=" '$(DefineConstants)' != '' and  '$(DefineConstants)' != '$(DefineConstants.Replace(`LITEVERSION`,``))' ">true</IsLiteVersion>
+  </PropertyGroup>
+
+  <!-- Embedded resources -->
+  <ItemGroup Condition=" '$(IsLiteVersion)' != 'true'">
+    <None Remove="externals\rdpwrap.ini.gz" />
+    <EmbeddedResource Include="externals\rdpwrap.ini.gz" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(IsLiteVersion)' != 'true' And ('$(Platform)'=='x86' Or '$(Platform)'=='AnyCPU')">
+    <None Remove="externals\x86\rdpwrap.dll.gz" />
+    <None Remove="externals\x86\RDPWrapOffsetFinder.exe.gz" />
+    <EmbeddedResource Include="externals\x86\rdpwrap.dll.gz" />
+    <EmbeddedResource Include="externals\x86\RDPWrapOffsetFinder.exe.gz" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(IsLiteVersion)' != 'true' And ('$(Platform)'=='x64' Or '$(Platform)'=='AnyCPU')">
+    <None Remove="externals\x64\rdpwrap.dll.gz" />
+    <None Remove="externals\x64\RDPWrapOffsetFinder.exe.gz" />
+    <EmbeddedResource Include="externals\x64\rdpwrap.dll.gz" />
+    <EmbeddedResource Include="externals\x64\RDPWrapOffsetFinder.exe.gz" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Platform)'=='x86' Or '$(Platform)'=='AnyCPU'">
+    <None Remove="externals\x86\Zydis.dll.gz" />
+    <None Remove="externals\x86\TermWrap.dll.gz" />
+    <EmbeddedResource Include="externals\x86\Zydis.dll.gz" />
+    <EmbeddedResource Include="externals\x86\TermWrap.dll.gz" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Platform)'=='x64' Or '$(Platform)'=='AnyCPU'">
+    <None Remove="externals\x64\Zydis.dll.gz" />
+    <None Remove="externals\x64\TermWrap.dll.gz" />
+    <None Remove="externals\x64\UmWrap.dll.gz" />
+    <None Remove="externals\x64\EndpWrap.dll.gz" />
+    <EmbeddedResource Include="externals\x64\Zydis.dll.gz" />
+    <EmbeddedResource Include="externals\x64\TermWrap.dll.gz" />
+    <EmbeddedResource Include="externals\x64\UmWrap.dll.gz" />
+    <EmbeddedResource Include="externals\x64\EndpWrap.dll.gz" />
+  </ItemGroup>
+
+  <!-- Framework References -->
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.ServiceProcess" />
+  </ItemGroup>
+</Project>
