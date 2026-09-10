@@ -4,7 +4,6 @@
 
 ![Windows](https://img.shields.io/badge/Windows-7%20%E2%80%93%2011-blue)
 ![.NET](https://img.shields.io/badge/.NET-4.5-purple)
-![License](https://img.shields.io/badge/license-MIT-green)
 
 ---
 
